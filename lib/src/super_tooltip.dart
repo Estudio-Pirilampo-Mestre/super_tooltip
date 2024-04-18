@@ -13,9 +13,11 @@ class SuperTooltip extends StatefulWidget {
   final Widget content;
   final TooltipDirection popupDirection;
   final SuperTooltipController? controller;
+  final void Function()? onTap;
   final void Function()? onLongPress;
   final void Function()? onShow;
   final void Function()? onHide;
+  final bool openOnTap;
   final bool snapsFarAwayVertically;
   final bool snapsFarAwayHorizontally;
   final bool? hasShadow;
@@ -61,9 +63,11 @@ class SuperTooltip extends StatefulWidget {
     required this.content,
     this.popupDirection = TooltipDirection.down,
     this.controller,
+    this.onTap,
     this.onLongPress,
     this.onShow,
     this.onHide,
+    this.openOnTap = true,
     this.showCloseButton,
     this.closeButtonColor,
     this.closeButtonSize,
@@ -201,7 +205,8 @@ class _SuperTooltipState extends State<SuperTooltip>
     return CompositedTransformTarget(
       link: _layerLink,
       child: GestureDetector(
-        onTap: _superTooltipController!.showTooltip,
+        onTap: widget.onTap ??
+            (widget.openOnTap ? _superTooltipController!.showTooltip : null),
         onLongPress: widget.onLongPress,
         child: widget.child,
       ),
