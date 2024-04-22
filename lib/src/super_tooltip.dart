@@ -18,6 +18,7 @@ class SuperTooltip extends StatefulWidget {
   final void Function()? onShow;
   final void Function()? onHide;
   final bool openOnTap;
+  final bool rootOverlay;
   final bool snapsFarAwayVertically;
   final bool snapsFarAwayHorizontally;
   final bool? hasShadow;
@@ -68,6 +69,7 @@ class SuperTooltip extends StatefulWidget {
     this.onShow,
     this.onHide,
     this.openOnTap = true,
+    this.rootOverlay = false,
     this.showCloseButton,
     this.closeButtonColor,
     this.closeButtonSize,
@@ -227,7 +229,7 @@ class _SuperTooltipState extends State<SuperTooltip>
   void _createOverlayEntries() {
     final renderBox = context.findRenderObject() as RenderBox;
 
-    final overlayState = Overlay.of(context);
+    final overlayState = Overlay.of(context, rootOverlay: widget.rootOverlay);
     RenderBox? overlay;
 
     // ignore: unnecessary_null_comparison
